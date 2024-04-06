@@ -66,7 +66,7 @@ app.get("/", (req, res) => {
       </head>
       <body>
         <div class="container">
-          <h1>Bienvenido a nuetra Tienda Online </h1>
+          <h1>Bienvenido a Nuestra Tienda Online </h1>
           
           <div>
             <button class="button" onclick="window.location.href='/api/products'">Ver Productos</button>
