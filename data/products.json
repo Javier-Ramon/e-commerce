@@ -1,0 +1,32 @@
+[
+    {
+      "id": 1,
+      "title": "titulo1",
+      "description": "descripcion1",
+      "price": "100",
+      "thumbnail": "oso.jpg",
+      "code": "a1515",
+      "stock": "10",
+      "status": true
+    },
+    {
+      "id": 2,
+      "title": "titulo2",
+      "description": "descripcion2",
+      "price": "200",
+      "thumbnail": "oso.jpg",
+      "code": "b1616",
+      "stock": "20",
+      "status": true
+    },
+    {
+      "id": 3,
+      "title": "titulo3",
+      "description": "descripcion3",
+      "price": "300",
+      "thumbnail": "oso.jpg",
+      "code": "c1717",
+      "stock": "30",
+      "status": true
+    }
+  ]
