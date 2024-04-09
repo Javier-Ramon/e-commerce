@@ -143,4 +143,3 @@ export default class ProductManagerDB {
     console.log(`Producto ${id} eliminado.`);
   }
 }
-export { productManagerDB };
