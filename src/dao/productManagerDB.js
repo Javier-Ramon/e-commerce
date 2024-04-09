@@ -1,6 +1,7 @@
 import fs from "fs";
+import productModel from './models/productModel.js';
 
-export default class ProductManager {
+export default class ProductManagerDB {
   constructor() {
     this.path = `./data/products.json`;
     this.products = [];
@@ -142,3 +143,4 @@ export default class ProductManager {
     console.log(`Producto ${id} eliminado.`);
   }
 }
+export { productManagerDB };
