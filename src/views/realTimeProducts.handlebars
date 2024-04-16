@@ -8,15 +8,10 @@
     required
   />
   <input type="number" id="price" name="price" placeholder="Price" required />
-  <input
-    type="file"
-    id="thumbnails"
-    name="thumbnails"
-    placeholder="Thumbnails URL"
-  />
+ 
   <input type="text" id="code" name="code" placeholder="Product Code" />
   <input type="number" id="stock" name="stock" placeholder="Stock" />
-  <button type="button" onclick="addProduct()">Agregar Producto</button>
+  <button id="button-create" onclick="createProduct(event)">Agregar Producto</button> 
 </form>
 
   
