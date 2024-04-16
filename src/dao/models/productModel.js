@@ -40,7 +40,7 @@ const productSchema = mongoose.Schema({
     }
 });
 
-//productsSchema.plugin(mongoosePaginate)
+productSchema.plugin(mongoosePaginate);
 
 const productModel = mongoose.model(productCollection, productSchema);
 

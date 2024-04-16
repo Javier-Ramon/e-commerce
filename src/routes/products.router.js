@@ -1,75 +1,126 @@
 import { Router } from "express";
-import ProductManager from "../dao/productManager.js";
-
+import { productManagerDB } from "../dao/productManager.js";
+import { uploader } from "../utils/multer.js";
+import productModel from "../dao/models/productModel.js";
 
 const router = Router();
-
-const PM = new ProductManager();
+const ProductService = new productManagerDB();
 
 router.get("/", async (req, res) => {
-  let limit = +req.query.limit;
-  const products = await PM.getProducts(limit);
-  res.render("home", {
-    style: "index.css",
-    products: products,
-    layout: "products",
-  });
-});
-
-router.get("/:productId", async (req, res) => {
-  let productId = +req.params.productId;
-  let product = await PM.getProductById(productId);
-
-  if (!product) {
-    return res.send({ error: "Producto no encontrado" });
-  }
-  res.send({ product });
-});
-
-router.post("/", async (req, res) => {
-  const { title, description, code, price, stock, category } = req.body;
-
   try {
-    await PM.addProduct({
-      title,
-      description,
-      code,
-      price,
-      status: true,
-      stock,
+    let { limit = 10, page = 1, query = {}, sort = null } = req.query;
+    const result = await ProductService.getAllProducts(
+      limit,
+      page,
+      query,
+      sort
+    );
+    res.send({
+      status: "success",
+      payload: result,
     });
   } catch (error) {
-    console.error(error);
-    res.status(400).send({ status: "error", error: "ha ocurrido un error" });
+    res.status(500).send({
+      status: "error",
+      message: error.message, // Mensaje de error en caso de una excepción
+    });
   }
-  res.send({ status: "success", message: "producto agregado" });
 });
 
-router.put("/:productId", async (req, res) => {
-  const productId = +req.params.productId;
-  const productData = req.body;
-
-  try {
-    await PM.updateProduct(productId, productData);
-  } catch (error) {
-    console.error(error);
-    res.status(400).send({ status: "error", error: "ha ocurrido un error" });
+router.post("/", uploader.array("thumbnails", 3), async (req, res) => {
+  if (req.files) {
+    req.body.thumbnails = [];
+    req.files.forEach((file) => {
+      req.body.thumbnails.push(file.filename);
+    });
   }
 
-  res.send({ status: "success", message: "producto editado" });
+  try {
+    const result = await ProductService.createProduct(req.body);
+    res.send({
+      status: "success",
+      payload: result,
+    });
+  } catch (error) {
+    res.status(400).send({
+      status: "error",
+      message: error.message, // Mensaje de error en caso de una excepción
+    });
+  }
 });
 
-router.delete("/:productId", async (req, res) => {
-  const productId = +req.params.productId;
-
-  try {
-    await PM.deleteProduct(productId);
-  } catch (error) {
-    console.error(error);
-    res.status(400).send({ status: "error", error: "ha ocurrido un error" });
+router.put("/:pid", uploader.array("thumbnails", 3), async (req, res) => {
+  if (req.files) {
+    req.body.thumbnails = [];
+    req.files.forEach((file) => {
+      req.body.thumbnails.push(file.filename);
+    });
   }
 
-  res.send({ status: "success", message: "producto eliminado" + productId });
+  try {
+    const result = await ProductService.updateProduct(req.params.pid, req.body);
+    res.send({
+      status: "success",
+      payload: result,
+    });
+  } catch (error) {
+    res.status(400).send({
+      status: "error",
+      message: error.message, // Mensaje de error en caso de una excepción
+    });
+  }
+});
+
+router.delete("/:pid", async (req, res) => {
+  try {
+    const result = await ProductService.deleteProduct(req.params.pid);
+    res.send({
+      status: "success",
+      payload: result,
+    });
+  } catch (error) {
+    res.status(400).send({
+      status: "error",
+      message: error.message, // Mensaje de error en caso de una excepción
+    });
+  }
+});
+
+router.get("/search", async (req, res) => {
+  try {
+    const { title } = req.query;
+    let query = {};
+    if (title) query = { title };
+
+    const products = await productModel.find(query).explain("executionStats");
+
+    res.send({
+      status: "success",
+      payload: products,
+    });
+  } catch (error) {
+    res.status(500).send({
+      status: "error",
+      payload: {
+        message: error.message, // Mensaje de error en caso de una excepción
+      },
+    });
+  }
+});
+
+router.get("/:pid", async (req, res) => {
+  try {
+    const result = await ProductService.getProductByID(req.params.pid);
+    res.send({
+      status: "success",
+      payload: result,
+    });
+  } catch (error) {
+    res.status(400).send({
+      status: "error",
+      message: error.message, // Mensaje de error en caso de una excepción
+    });
+  }
 });
 
 export default router;

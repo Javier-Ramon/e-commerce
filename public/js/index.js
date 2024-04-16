@@ -21,7 +21,7 @@ function addProduct() {
 
   socket.emit("addProduct", product);
 
-  // Reset form fields
+
   document.getElementById("title").value = "";
   document.getElementById("description").value = "";
   document.getElementById("price").value = "";
@@ -54,7 +54,7 @@ function renderProducts(products) {
         <p class="product-code">Code: ${product.code}</p>
       </div>
       <div class="product-actions">
-        <button class="delete-button" onclick="deleteProduct(${product.id})">Delete</button>
+        <button class="delete-button" onclick="deleteProduct(${product. _id})">Delete</button>
       </div>
     </div>
     `;
