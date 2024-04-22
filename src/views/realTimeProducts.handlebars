@@ -16,13 +16,14 @@
   />
   <input type="text" id="code" name="code" placeholder="Product Code" />
   <input type="number" id="stock" name="stock" placeholder="Stock" />
-  <button type="button" onclick="addProduct()">Agregar Producto</button>
+  <button type="button-create" onclick="createProduct(event)">Agregar Producto</button>
 </form>
 
   
 
 <div id="products-container" class="product-grid">
-</div>
+
+
 
 <script src="/socket.io/socket.io.js"></script>
-<script src="/public/js/index.js"></script>
+<script src="/js/index.js"></script>

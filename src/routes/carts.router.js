@@ -3,7 +3,7 @@ import CartManager from "../dao/cartManager.js";
 
 const router = Router();
 
-const cartManagerInstance = new CartManager("data/carts.json");
+const cartManagerInstance = new CartManager("data/cart.json");
 
 router.post("/", async (req, res) => {
   try {

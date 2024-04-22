@@ -8,13 +8,15 @@ socket.on("receiveProducts", (products) => {
   renderProducts(products);
 });
 
-function addProduct() {
-  const product = {
-    title: document.getElementById("title").value,
-    description: document.getElementById("description").value,
-    price: document.getElementById("price").value,
-    code: document.getElementById("code").value,
-    stock: document.getElementById("stock").value,
+function createProduct(event) {
+  event.preventDefault();
+  const newProduct = {
+    title: $("#title").value,
+    description: $("#description").value,
+    code: $("#code").value,
+    price: $("#price").value,
+    stock: $("#stock").value,
+    category: $("#category").value,
   };
 
   console.log(product);
@@ -29,8 +31,10 @@ function addProduct() {
   document.getElementById("stock").value = "";
 }
 
+
+
 function deleteProduct(productId) {
-  socket.emit("deleteProduct", +productId);
+  socket.emit("deleteProduct", productId);
   getProducts();
 }
 
@@ -54,7 +58,7 @@ function renderProducts(products) {
         <p class="product-code">Code: ${product.code}</p>
       </div>
       <div class="product-actions">
-        <button class="delete-button" onclick="deleteProduct(${product.id})">Delete</button>
+        <button class="delete-button" onclick="deleteProduct(${product.id})">Eliminar</button>
       </div>
     </div>
     `;

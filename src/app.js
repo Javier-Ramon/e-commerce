@@ -9,6 +9,19 @@ import ProductManager from "./dao/productManager.js";
 const app = express();
 const productManagerInstance = new ProductManager("data/products.json");
 
+const conexion = async () => {
+  try {
+    await mongoose.connect(
+      "mongodb+srv://Nachoo:Nachoo12345.@cluster0.3wfq1q8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+      { dbName: "products" }
+    );
+    console.log("Connected to MongoDB Atlas");
+  } catch (error) {
+    console.error("Failed to connect to MongoDB Atlas:", error.message);
+  }
+};
+
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(`${__dirname}/../public`));
