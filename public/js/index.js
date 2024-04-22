@@ -23,7 +23,7 @@ function createProduct(event) {
 
   socket.emit("addProduct", product);
 
-  // Reset form fields
+
   document.getElementById("title").value = "";
   document.getElementById("description").value = "";
   document.getElementById("price").value = "";
@@ -58,7 +58,11 @@ function renderProducts(products) {
         <p class="product-code">Code: ${product.code}</p>
       </div>
       <div class="product-actions">
+<<<<<<< HEAD
         <button class="delete-button" onclick="deleteProduct(${product.id})">Eliminar</button>
+=======
+        <button class="delete-button" onclick="deleteProduct(${product. _id})">Delete</button>
+>>>>>>> d769acd00a99506514743b7452720a72335fdd36
       </div>
     </div>
     `;

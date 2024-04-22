@@ -3,7 +3,7 @@ import handlebars from "express-handlebars";
 import cartsRouter from "./routes/carts.router.js";
 import productsRouter from "./routes/products.router.js";
 import { Server } from "socket.io";
-import { __dirname } from "./utils.js";
+import { __dirname } from "./utils/utils.js";
 import ProductManager from "./dao/productManager.js";
 
 const app = express();
@@ -96,7 +96,7 @@ app.use("/api/carts", cartsRouter);
 
 const port = 8080;
 const httpServer = app.listen(port, () => {
-  console.log(` Esta escuhcando en el puerto ${port}`);
+  console.log(` Esta escuchando en el puerto ${port}`);
 });
 
 app.get("/realtimeproducts", async (req, res) => {
