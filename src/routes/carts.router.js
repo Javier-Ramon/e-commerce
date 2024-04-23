@@ -4,9 +4,9 @@ import cartManagerDB from "../dao/cartManager.js";
 const router = Router();
 const CartService = new cartManagerDB();
 
-<<<<<<< HEAD
+
 const cartManagerInstance = new CartManager("data/cart.json");
-=======
+
 router.get("/:cid", async (req, res) => {
   try {
     const result = await CartService.getProductsFromCartByID(req.params.cid);
@@ -21,7 +21,7 @@ router.get("/:cid", async (req, res) => {
     });
   }
 });
->>>>>>> d769acd00a99506514743b7452720a72335fdd36
+
 
 router.post("/", async (req, res) => {
   try {

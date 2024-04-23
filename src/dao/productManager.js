@@ -1,6 +1,6 @@
 import productModel from "../dao/models/productModel.js";
 
-export default class ProductManagerDB {
+export default class productManagerD {
   async getProducts(limit, page, query, sort) {
     try {
       return await productModel.paginate(query, {limit: limit, page: page, lean: true, sort: sort})

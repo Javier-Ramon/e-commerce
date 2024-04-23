@@ -5,6 +5,10 @@ import productsRouter from "./routes/products.router.js";
 import { Server } from "socket.io";
 import { __dirname } from "./utils/utils.js";
 import ProductManager from "./dao/productManager.js";
+import cookieParser from "cookie-parser";
+import cookiesRouter from "./routes/cookiesRouter.js"
+
+
 
 const app = express();
 const productManagerInstance = new ProductManager("data/products.json");
@@ -21,7 +25,7 @@ const conexion = async () => {
   }
 };
 
-
+app.use(cookieParser("Nachoo2024"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(`${__dirname}/../public`));
@@ -97,8 +101,8 @@ app.use("/api/carts", cartsRouter);
 const port = 8080;
 const httpServer = app.listen(port, () => {
   console.log(` Esta escuchando en el puerto ${port}`);
+  conexion()
 });
-
 app.get("/realtimeproducts", async (req, res) => {
   res.render("realTimeProducts", {
     style: "index.css",
